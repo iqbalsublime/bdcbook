@@ -35,6 +35,9 @@ configurations {
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    
+	compile 'org.webjars:bootstrap:3.3.1' // Ref:  http://www.webjars.org/
+    
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
@@ -43,6 +46,13 @@ eclipse {
     classpath {
          containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
          containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+    }
+}
+
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = file("$buildDir/classes/main/")
     }
 }
 
