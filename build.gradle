@@ -3,6 +3,7 @@ buildscript {
         springBootVersion = '1.2.0.RELEASE'
     }
     repositories {
+    	mavenLocal()
         mavenCentral()
     }
     dependencies {
@@ -25,6 +26,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
+	mavenLocal()
     mavenCentral()
 }
 
@@ -37,7 +39,9 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     
 	compile 'org.webjars:bootstrap:3.3.1' // Ref:  http://www.webjars.org/
-    
+	
+    compile 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:1.2.5'
+	
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }

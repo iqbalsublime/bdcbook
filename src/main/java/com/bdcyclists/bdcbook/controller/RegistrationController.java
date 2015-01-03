@@ -7,16 +7,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class HomeController {
+public class RegistrationController {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(HomeController.class);
 
-	protected static final String VIEW_NAME_HOME = "home";
+	protected static final String VIEW_NAME_REGISTRATION = "registration";
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String showHome() {
-		LOGGER.debug("Rending home page");
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String showRegistrationPage() {
+		LOGGER.debug("Rendering RegistrationPage.");
 
-		return VIEW_NAME_HOME;
+		return VIEW_NAME_REGISTRATION;
 	}
 }

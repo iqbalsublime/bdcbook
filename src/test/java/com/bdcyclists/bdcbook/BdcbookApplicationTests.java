@@ -1,4 +1,4 @@
-package demo;
+package com.bdcyclists.bdcbook;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
