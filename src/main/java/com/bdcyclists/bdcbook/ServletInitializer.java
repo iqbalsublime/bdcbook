@@ -1,4 +1,4 @@
-package demo;
+package com.bdcyclists.bdcbook;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;

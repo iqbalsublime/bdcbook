@@ -1,4 +1,4 @@
-package demo;
+package com.bdcyclists.bdcbook;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableAutoConfiguration
 public class BdcbookApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         SpringApplication.run(BdcbookApplication.class, args);
     }
 }
