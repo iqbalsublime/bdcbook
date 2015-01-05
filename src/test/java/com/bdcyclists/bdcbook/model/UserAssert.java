@@ -1,102 +1,108 @@
 package com.bdcyclists.bdcbook.model;
 
+import com.bdcyclists.bdcbook.domain.Role;
+import com.bdcyclists.bdcbook.domain.User;
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.api.Assertions;
 
-import com.bdcyclists.bdcbook.domain.Role;
-import com.bdcyclists.bdcbook.domain.User;
-
 public class UserAssert extends AbstractAssert<UserAssert, User> {
 
-	protected UserAssert(User actual) {
-		super(actual, UserAssert.class);
-	}
+    protected UserAssert(User actual) {
+        super(actual, UserAssert.class);
+    }
 
-	public static UserAssert assertThat(User actual) {
-		return new UserAssert(actual);
-	}
+    public static UserAssert assertThat(User actual) {
+        return new UserAssert(actual);
+    }
 
-	public UserAssert hasEmail(String email) {
-		isNotNull();
+    public UserAssert hasEmail(String email) {
+        isNotNull();
 
-		Assertions
-				.assertThat(actual.getEmail())
-				.overridingErrorMessage(
-						"Expected email to be <%s> but was <%s>", email,
-						actual.getEmail()).isEqualTo(email);
+        Assertions
+                .assertThat(actual.getEmail())
+                .overridingErrorMessage(
+                        "Expected email to be <%s> but was <%s>", email,
+                        actual.getEmail())
+                .isEqualTo(email);
 
-		return this;
-	}
+        return this;
+    }
 
-	public UserAssert hasFirstName(String firstName) {
-		isNotNull();
+    public UserAssert hasFirstName(String firstName) {
+        isNotNull();
 
-		Assertions
-				.assertThat(actual.getFirstName())
-				.overridingErrorMessage(
-						"Expected firstName to be <%s> but was <%s>",
-						firstName, actual.getFirstName()).isEqualTo(firstName);
+        Assertions
+                .assertThat(actual.getFirstName())
+                .overridingErrorMessage(
+                        "Expected firstName to be <%s> but was <%s>",
+                        firstName, actual.getFirstName())
+                .isEqualTo(firstName);
 
-		return this;
-	}
+        return this;
+    }
 
-	public UserAssert hasLastName(String lastName) {
-		isNotNull();
+    public UserAssert hasLastName(String lastName) {
+        isNotNull();
 
-		Assertions
-				.assertThat(actual.getLastName())
-				.overridingErrorMessage(
-						"Expected lastName to be <%s> but was <%s>", lastName,
-						actual.getLastName()).isEqualTo(lastName);
+        Assertions
+                .assertThat(actual.getLastName())
+                .overridingErrorMessage(
+                        "Expected lastName to be <%s> but was <%s>", lastName,
+                        actual.getLastName())
+                .isEqualTo(lastName);
 
-		return this;
-	}
+        return this;
+    }
 
-	public UserAssert hasNoId() {
-		isNotNull();
+    public UserAssert hasNoId() {
+        isNotNull();
 
-		Assertions
-				.assertThat(actual.getId())
-				.overridingErrorMessage(
-						"Expected lastName to be <null> but was <%s>",
-						actual.getId()).isNull();
+        Assertions
+                .assertThat(actual.getId())
+                .overridingErrorMessage(
+                        "Expected lastName to be <null> but was <%s>",
+                        actual.getId())
+                .isNull();
 
-		return this;
-	}
+        return this;
+    }
 
-	public UserAssert hasPassword(String password) {
-		isNotNull();
+    public UserAssert hasPassword(String password) {
+        isNotNull();
 
-		Assertions
-				.assertThat(actual.getPassword())
-				.overridingErrorMessage(
-						"Expected password to be <%s> but was <%s>", password,
-						actual.getLastName()).isEqualTo(password);
+        Assertions
+                .assertThat(actual.getPassword())
+                .overridingErrorMessage(
+                        "Expected password to be <%s> but was <%s>", password,
+                        actual.getLastName())
+                .isEqualTo(password);
 
-		return this;
-	}
+        return this;
+    }
 
-	public UserAssert hasNoPassword() {
-		isNotNull();
+    public UserAssert hasNoPassword() {
+        isNotNull();
 
-		Assertions
-				.assertThat(actual.getPassword())
-				.overridingErrorMessage(
-						"Expected password to be <null> but was <%s>",
-						actual.getPassword()).isNull();
-		return this;
-	}
+        Assertions
+                .assertThat(actual.getPassword())
+                .overridingErrorMessage(
+                        "Expected password to be <null> but was <%s>",
+                        actual.getPassword())
+                .isNull();
+        return this;
+    }
 
-	public UserAssert hasRole() {
-		isNotNull();
+    public UserAssert hasRole() {
+        isNotNull();
 
-		Assertions
-				.assertThat(actual.getRole())
-				.overridingErrorMessage(
-						"Expected role to be <ROLE_USER> or <ROLE_ADMIN> but was <%s>",
-						actual.getRole()).isIn(Role.values());
+        Assertions
+                .assertThat(actual.getRole())
+                .overridingErrorMessage(
+                        "Expected role to be <ROLE_USER> or <ROLE_ADMIN> but was <%s>",
+                        actual.getRole())
+                .isIn(Role.ROLE_USER, Role.ROLE_USER);
 
-		return this;
-	}
+        return this;
+    }
 
 }

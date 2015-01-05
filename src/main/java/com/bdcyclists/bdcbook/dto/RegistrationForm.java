@@ -1,22 +1,12 @@
 package com.bdcyclists.bdcbook.dto;
 
-import javax.validation.constraints.Size;
-
+import com.bdcyclists.bdcbook.validation.PasswordsNotEqual;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.bdcyclists.bdcbook.validation.PasswordsNotEmpty;
-import com.bdcyclists.bdcbook.validation.PasswordsNotEqual;
+import javax.validation.constraints.Size;
 
-@PasswordsNotEmpty(
-        triggerFieldName = "password",
-        passwordFieldName = "password",
-        passwordConfirmedFieldName = "passwordConfirmed"
-)
-@PasswordsNotEqual(
-        passwordFieldName = "password",
-        passwordConfirmedFieldName = "passwordConfirmed"
-)
+@PasswordsNotEqual(passwordFieldName = "password", passwordConfirmedFieldName = "passwordConfirmed")
 public class RegistrationForm {
 	public static final String FIELD_NAME_EMAIL = "email";
 
@@ -33,8 +23,10 @@ public class RegistrationForm {
 	@Size(max = 100)
 	private String lastName;
 
+	@NotEmpty
 	private String password;
 
+	@NotEmpty
 	private String passwordConfirmed;
 
 	public String getEmail() {
@@ -77,5 +69,4 @@ public class RegistrationForm {
 		this.passwordConfirmed = passwordConfirmed;
 	}
 
-	
 }

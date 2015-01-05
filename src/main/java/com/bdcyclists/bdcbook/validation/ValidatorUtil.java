@@ -4,10 +4,9 @@ import javax.validation.ConstraintValidatorContext;
 import java.lang.reflect.Field;
 
 public class ValidatorUtil {
-	public static void addValidationError(String field,
-			ConstraintValidatorContext context) {
-		context.buildConstraintViolationWithTemplate(
-				context.getDefaultConstraintMessageTemplate()).addNode(field)
+	public static void addValidationError(String field, ConstraintValidatorContext context) {
+		context.buildConstraintViolationWithTemplate(context.getDefaultConstraintMessageTemplate())
+				.addPropertyNode(field)
 				.addConstraintViolation();
 	}
 

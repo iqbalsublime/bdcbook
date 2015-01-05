@@ -27,7 +27,7 @@ public class RegistrationFormBuilder {
 		return this;
 	}
 
-	public RegistrationFormBuilder passwordVerification(String passwordConfirmed) {
+	public RegistrationFormBuilder passwordConfirmed(String passwordConfirmed) {
 		dto.setPasswordConfirmed(passwordConfirmed);
 		return this;
 	}
