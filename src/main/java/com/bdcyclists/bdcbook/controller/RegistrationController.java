@@ -61,7 +61,7 @@ public class RegistrationController {
 
         LOGGER.debug("Registered user account with information: {}", registered);
         redirectAttributes.addFlashAttribute("message", "Registration has been completed, you can login now");
-        return "redirect:/";
+        return "redirect:/login";
     }
 
     private User createUserAccount(RegistrationForm userAccountData, BindingResult result) {

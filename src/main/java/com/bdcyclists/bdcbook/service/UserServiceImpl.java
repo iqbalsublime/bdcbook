@@ -60,6 +60,13 @@ public class UserServiceImpl implements UserService {
         return repository.save(registered);
     }
 
+    @Override
+    public User findByEmail(String email) {
+        LOGGER.debug("Retrieving user from database by email = {} ", email);
+
+        return repository.findByEmail(email);
+    }
+
     private boolean emailExist(String email) {
         LOGGER.debug("Checking if email {} is already found from the database.", email);
 
