@@ -1,5 +1,6 @@
 package com.bdcyclists.bdcbook.service;
 
+import com.bdcyclists.bdcbook.domain.Role;
 import com.bdcyclists.bdcbook.domain.User;
 import com.bdcyclists.bdcbook.dto.RegistrationForm;
 import com.bdcyclists.bdcbook.repository.UserRepository;
@@ -43,9 +44,13 @@ public class UserServiceImpl implements UserService {
 
         String encodedPassword = encodePassword(userAccountData);
 
-        User.Builder user = User.getBuilder().email(userAccountData.getEmail())
+        User.Builder user = User.getBuilder()
+                .email(userAccountData.getEmail())
                 .firstName(userAccountData.getFirstName())
                 .lastName(userAccountData.getLastName())
+                .role(Role.ROLE_USER)
+                .enabled(true)
+                .locked(false)
                 .password(encodedPassword);
 
         User registered = user.build();

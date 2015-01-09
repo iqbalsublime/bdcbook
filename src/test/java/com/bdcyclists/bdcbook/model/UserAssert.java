@@ -92,15 +92,16 @@ public class UserAssert extends AbstractAssert<UserAssert, User> {
         return this;
     }
 
+    //TODO not working, have to fix it
     public UserAssert hasRole() {
         isNotNull();
 
         Assertions
-                .assertThat(actual.getRole())
+                .assertThat(actual.getUserRoles())
                 .overridingErrorMessage(
                         "Expected role to be <ROLE_USER> or <ROLE_ADMIN> but was <%s>",
-                        actual.getRole())
-                .isIn(Role.ROLE_USER, Role.ROLE_USER);
+                        actual.getUserRoles())
+                .isIn();
 
         return this;
     }

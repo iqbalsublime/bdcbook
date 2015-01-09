@@ -1,9 +1,16 @@
 package com.bdcyclists.bdcbook.domain;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.CollectionUtils;
+
 import javax.persistence.*;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
-public class User extends BaseEntity<Long> {
+public class User extends BaseEntity<Long> implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,9 +28,17 @@ public class User extends BaseEntity<Long> {
     @Column(name = "password", length = 255)
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role", length = 20, nullable = false)
-    private Role role;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<UserRole> userRoles = new HashSet<>();
+
+    @Column(nullable = false)
+    private boolean enabled;
+
+    @Column(nullable = false)
+    private boolean locked;
+
+    @Transient
+    private List<SimpleGrantedAuthority> simpleGrantedAuthorityList;
 
     public User() {
 
@@ -63,20 +78,72 @@ public class User extends BaseEntity<Long> {
         this.lastName = lastName;
     }
 
+
+    // Supported methods for springframework security UserDetails interface
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (simpleGrantedAuthorityList == null && !CollectionUtils.isEmpty(getUserRoles())) {
+            simpleGrantedAuthorityList = new ArrayList<>();
+
+            simpleGrantedAuthorityList
+                    .addAll(getUserRoles()
+                            .stream()
+                            .map(userRole -> new SimpleGrantedAuthority(userRole.getRole().name())).collect(Collectors.toList()));
+        }
+
+        return simpleGrantedAuthorityList;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return getEmail();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true; //Not implemented
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return !isLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true; // Not implemented
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
 
     public void setId(Long id) {
@@ -85,9 +152,16 @@ public class User extends BaseEntity<Long> {
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", email=" + email + ", firstName="
-                + firstName + ", lastName=" + lastName + ", password="
-                + password + ", role=" + role + "]";
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", password='" + password + '\'' +
+                ", userRoles=" + userRoles +
+                ", enabled=" + enabled +
+                ", locked=" + locked +
+                '}';
     }
 
     public static class Builder {
@@ -96,7 +170,6 @@ public class User extends BaseEntity<Long> {
 
         public Builder() {
             user = new User();
-            user.role = Role.ROLE_USER;
         }
 
         public Builder email(String email) {
@@ -127,5 +200,21 @@ public class User extends BaseEntity<Long> {
             user.id = id;
             return this;
         }
+
+        public Builder role(Role role) {
+            user.userRoles.add(new UserRole(this.user, role));
+            return this;
+        }
+
+        public Builder enabled(boolean enabled) {
+            user.enabled = enabled;
+            return this;
+        }
+
+        public Builder locked(boolean locked) {
+            user.locked = locked;
+            return this;
+        }
+
     }
 }
