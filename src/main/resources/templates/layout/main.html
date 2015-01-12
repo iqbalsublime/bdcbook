@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
 	xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -54,6 +55,16 @@
 									<li><a href="#">Separated link</a></li>
 									<li><a href="#">One more separated link</a></li>
 								</ul></li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li sec:authorize="isAuthenticated()">
+								<a href="/logout" th:href="@{/logout}">
+									Logout [<span sec:authentication="name"></span>]
+								</a>
+							</li>
+							<li sec:authorize="!isAuthenticated()">
+								<a  th:href="@{/login}">Log In</a>
+							</li>
 						</ul>
 					</div>
 				</div>
