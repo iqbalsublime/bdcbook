@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.servlet.ServletException;
@@ -18,6 +19,7 @@ import java.util.Set;
  * @author Bazlur Rahman Rokon
  * @date 1/9/15.
  */
+@Component
 public class SecurityAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityAuthenticationSuccessHandler.class);
 

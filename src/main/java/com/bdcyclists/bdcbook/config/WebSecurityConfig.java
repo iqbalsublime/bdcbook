@@ -23,6 +23,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private BdcbookAuthenticationProvider authenticationProvider;
 
+    @Autowired
+    private SecurityAuthenticationSuccessHandler securityAuthenticationSuccessHandler;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -32,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .formLogin()
                     .loginPage("/login")
-                    .successHandler(new SecurityAuthenticationSuccessHandler())
+                    .successHandler(securityAuthenticationSuccessHandler)
                     .permitAll()
                 .and()
                     .logout()
@@ -42,7 +45,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .authenticationProvider(authenticationProvider);
 
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {
