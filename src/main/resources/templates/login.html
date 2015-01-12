@@ -49,6 +49,13 @@
 				</div>
 			</div>
 		</form>
+
+		<h3>Connect with Facebook</h3>
+
+		<form id="connect-facebook" th:action="@{/connect/facebook}" method="POST">
+			<input type="hidden" name="scope" value="read_stream" />
+			<p><button class="btn btn-info" type="submit">Connect to Facebook</button></p>
+		</form>
 	</div>
 </body>
 </html>

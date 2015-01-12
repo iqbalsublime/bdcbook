@@ -3,11 +3,13 @@ buildscript {
         springBootVersion = '1.2.0.RELEASE'
     }
     repositories {
+        jcenter()
     	mavenLocal()
         mavenCentral()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath 'org.springframework:springloaded:1.2.0.RELEASE'
     }
 }
 
@@ -39,6 +41,7 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-thymeleaf"
     compile "org.springframework.boot:spring-boot-starter-security"
     compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile("org.springframework.social:spring-social-facebook")
 
     compile 'mysql:mysql-connector-java:5.1.34'
 
