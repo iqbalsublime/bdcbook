@@ -1,6 +1,7 @@
 .classpath
 .gradle
 .project
+.springBeans
 .settings
 
 bin
