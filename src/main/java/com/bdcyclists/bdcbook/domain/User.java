@@ -37,6 +37,8 @@ public class User extends BaseEntity<Long> implements UserDetails {
     @Column(nullable = false)
     private boolean locked;
 
+    private String socialSignInProvider;
+
     @Transient
     private List<SimpleGrantedAuthority> simpleGrantedAuthorityList;
 
@@ -150,6 +152,14 @@ public class User extends BaseEntity<Long> implements UserDetails {
         this.id = id;
     }
 
+    public String getSocialSignInProvider() {
+        return socialSignInProvider;
+    }
+
+    public void setSocialSignInProvider(String socialSignInProvider) {
+        this.socialSignInProvider = socialSignInProvider;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -161,6 +171,7 @@ public class User extends BaseEntity<Long> implements UserDetails {
                 ", userRoles=" + userRoles +
                 ", enabled=" + enabled +
                 ", locked=" + locked +
+                ", socialSignInProvider=" + socialSignInProvider +
                 '}';
     }
 
@@ -213,6 +224,11 @@ public class User extends BaseEntity<Long> implements UserDetails {
 
         public Builder locked(boolean locked) {
             user.locked = locked;
+            return this;
+        }
+
+        public Builder setSignInProvider(String signInProvider){
+            user.socialSignInProvider = signInProvider;
             return this;
         }
 

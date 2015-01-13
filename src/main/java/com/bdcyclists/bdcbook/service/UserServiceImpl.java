@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
         String encodedPassword = encodePassword(userAccountData);
 
-        User.Builder user = User.getBuilder()
+        User.Builder userBuilder = User.getBuilder()
                 .email(userAccountData.getEmail())
                 .firstName(userAccountData.getFirstName())
                 .lastName(userAccountData.getLastName())
@@ -53,7 +53,13 @@ public class UserServiceImpl implements UserService {
                 .locked(false)
                 .password(encodedPassword);
 
-        User registered = user.build();
+        if (userAccountData.getSocialSignInProvider() != null) {
+            LOGGER.debug("signInProvider is found ={}", userAccountData.getSocialSignInProvider());
+
+            userBuilder.setSignInProvider(userAccountData.getSocialSignInProvider());
+        }
+
+        User registered = userBuilder.build();
 
         LOGGER.debug("Persisting new user with information: {}", registered);
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/main">
 
@@ -11,11 +12,13 @@
 <body>
 <div layout:fragment="content">
 
-        <fieldset>
+        <fieldset sec:authorize="isAnonymous()">
             <legend th:text="#{title.registrationForm}">User Registration Form</legend>
 
             <form class="form-horizontal" role="form" th:action="@{/user/register}"
                   th:object="${registrationForm}" method="post">
+
+                <input type="hidden" th:field="*{socialSignInProvider}"/>
 
                 <div class="form-group">
                     <label for="email" class="col-sm-2 control-label"
@@ -93,6 +96,14 @@
                 </div>
             </form>
         </fieldset>
+
+        <div sec:authorize="isAuthenticated()">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p>You cannot create an user account because you are already logged in.</p>
+        </div>
     </div>
 </body>
 </html>

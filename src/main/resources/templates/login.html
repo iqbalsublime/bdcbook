@@ -1,61 +1,80 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout/main">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/main">
 <head>
-<title>Login</title>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/social-buttons-3.css}"/>
 </head>
 <body>
 
-	<div layout:fragment="content">
+<div layout:fragment="content">
 
-		<div class="alert alert-warning alert-dismissible" role="alert">
-			<button type="button" class="close" data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-			<div th:if="${param.error}">Invalid username and password.</div>
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"
+                aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div th:if="${param.error}">Invalid username and password.</div>
 
-			<div th:if="${param.logout}">You have been logged out.</div>
-		</div>
+        <div th:if="${param.logout}">You have been logged out.</div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-8">
+            <form class="form-horizontal" role="form" th:action="@{/login}"
+                  method="post">
 
-		<form class="form-horizontal" role="form" th:action="@{/login}"
-			method="post">
+                <div class="form-group">
+                    <label for="username" class="col-sm-2 control-label"> User
+                        Name </label>
 
-			<div class="form-group">
-				<label for="username" class="col-sm-2 control-label"> User
-					Name </label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="username"
-						name="username" />
-				</div>
-			</div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="username"
+                               name="username"/>
+                    </div>
+                </div>
 
-			<div class="form-group">
-				<label for="password" class="col-sm-2 control-label">
-					Password </label>
+                <div class="form-group">
+                    <label for="password" class="col-sm-2 control-label">
+                        Password </label>
 
-				<div class="col-sm-4">
-					<input type="password" class="form-control" id="password"
-						name="password" />
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" class="btn btn-primary"
-						th:text="#{button.signin}">Sign In</button>
-				</div>
-			</div>
-		</form>
+                    <div class="col-sm-4">
+                        <input type="password" class="form-control" id="password"
+                               name="password"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary"
+                                th:text="#{button.signin}">Sign In
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
 
-		<h3>Connect with Facebook</h3>
-
-		<form id="connect-facebook" th:action="@{/connect/facebook}" method="POST">
-			<input type="hidden" name="scope" value="read_stream" />
-			<p><button class="btn btn-info" type="submit">Connect to Facebook</button></p>
-		</form>
-	</div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row social-button-row">
+                        <div class="col-lg-4">
+                            <!-- FACEBOOK SIGNIN -->
+                            <form name="fb_signin" id="fb_signin" th:action="@{/auth/facebook}" method="POST">
+                                <input type="hidden" name="_csrf" th:value="${_csrf.token}"></input>
+                                <input type="hidden" name="scope" value="email"/>
+                                <input type="hidden" name="scope" value="publish_stream, user_photos, offline_access"/>
+                                <button class="btn btn-facebook"><i class="icon-facebook"></i>
+                                    Sign in with Facebook
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
