@@ -49,6 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/user/register",
                         "/webjars/**",
                         "/signup/**",
+                        "/default",
+                        "/forgot-password",
                         "/auth/facebook/**",
                         "/connect/facebook/**")
                 .permitAll()

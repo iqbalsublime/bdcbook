@@ -39,6 +39,8 @@ public class User extends BaseEntity<Long> implements UserDetails {
 
     private String socialSignInProvider;
 
+    private String passwordResetHash;
+
     @Transient
     private List<SimpleGrantedAuthority> simpleGrantedAuthorityList;
 
@@ -158,6 +160,14 @@ public class User extends BaseEntity<Long> implements UserDetails {
 
     public void setSocialSignInProvider(String socialSignInProvider) {
         this.socialSignInProvider = socialSignInProvider;
+    }
+
+    public String getPasswordResetHash() {
+        return passwordResetHash;
+    }
+
+    public void setPasswordResetHash(String passwordResetHash) {
+        this.passwordResetHash = passwordResetHash;
     }
 
     @Override

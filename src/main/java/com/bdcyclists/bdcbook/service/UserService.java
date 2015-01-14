@@ -7,4 +7,6 @@ public interface UserService {
     public User registerNewUserAccount(RegistrationForm userAccountData) throws DuplicateEmailException;
 
     public User findByEmail(String email);
+
+    void update(User user);
 }

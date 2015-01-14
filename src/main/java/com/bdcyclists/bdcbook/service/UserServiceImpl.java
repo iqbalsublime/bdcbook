@@ -73,6 +73,14 @@ public class UserServiceImpl implements UserService {
         return repository.findByEmail(email);
     }
 
+    @Override
+    public void update(User user) {
+        User userFromDb = findByEmail(user.getEmail());
+        userFromDb.setPasswordResetHash(user.getPasswordResetHash());
+
+        repository.save(userFromDb);
+    }
+
     private boolean emailExist(String email) {
         LOGGER.debug("Checking if email {} is already found from the database.", email);
 
