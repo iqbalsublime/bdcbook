@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/**/*.css", "/**/*.png", "/**/*.gif", "/**/*.jpg","**/favicon.ico");
+                .antMatchers("/**/*.css","/**/*.js", "/**/*.png", "/**/*.gif", "/**/*.jpg","**/favicon.ico");
     }
 
     @Override
@@ -50,6 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/webjars/**",
                         "/signup/**",
                         "/default",
+                        "/change-password",
                         "/forgot-password",
                         "/auth/facebook/**",
                         "/connect/facebook/**")

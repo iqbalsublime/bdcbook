@@ -81,6 +81,12 @@ public class UserServiceImpl implements UserService {
         repository.save(userFromDb);
     }
 
+    @Override
+    public User findByEmailAndResetHash(String emailAddress, String resetKey) {
+
+        return repository.findByEmailAndPasswordResetHash(emailAddress, resetKey);
+    }
+
     private boolean emailExist(String email) {
         LOGGER.debug("Checking if email {} is already found from the database.", email);
 

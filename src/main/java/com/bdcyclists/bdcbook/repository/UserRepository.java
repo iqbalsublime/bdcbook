@@ -1,10 +1,11 @@
 package com.bdcyclists.bdcbook.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.bdcyclists.bdcbook.domain.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	public User findByEmail(String email);
+    User findByEmail(String email);
+
+    User findByEmailAndPasswordResetHash(String email, String passwordResetHash);
 }
