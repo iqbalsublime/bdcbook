@@ -13,15 +13,15 @@ import java.util.Collection;
 public class SocialMediaUser extends SocialUser {
     private Long id;
 
-    private java.lang.String firstName;
+    private String  firstName;
 
-    private java.lang.String lastName;
+    private String  lastName;
 
     private Role role;
 
     private String socialSignInProvider;
 
-    public SocialMediaUser(java.lang.String username, java.lang.String password, Collection<? extends GrantedAuthority> authorities) {
+    public SocialMediaUser(String  username, String  password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
     }
 
@@ -33,19 +33,19 @@ public class SocialMediaUser extends SocialUser {
         this.id = id;
     }
 
-    public java.lang.String getFirstName() {
+    public String  getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(java.lang.String firstName) {
+    public void setFirstName(String  firstName) {
         this.firstName = firstName;
     }
 
-    public java.lang.String getLastName() {
+    public String  getLastName() {
         return lastName;
     }
 
-    public void setLastName(java.lang.String lastName) {
+    public void setLastName(String  lastName) {
         this.lastName = lastName;
     }
 
@@ -66,7 +66,7 @@ public class SocialMediaUser extends SocialUser {
     }
 
     @Override
-    public java.lang.String toString() {
+    public String  toString() {
         return "SocialMediaUser{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +

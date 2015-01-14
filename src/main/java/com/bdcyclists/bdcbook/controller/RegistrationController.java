@@ -29,9 +29,9 @@ public class RegistrationController {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(HomeController.class);
 
-    protected static final java.lang.String VIEW_NAME_REGISTRATION_PAGE = "user/registration";
-    protected static final java.lang.String ERROR_CODE_EMAIL_EXIST = "NotExist.user.email";
-    protected static final java.lang.String MODEL_NAME_REGISTRATION_DTO = "registrationForm";
+    protected static final String VIEW_NAME_REGISTRATION_PAGE = "user/registration";
+    protected static final String ERROR_CODE_EMAIL_EXIST = "NotExist.user.email";
+    protected static final String MODEL_NAME_REGISTRATION_DTO = "registrationForm";
 
     @Autowired
     private UserService userService;
@@ -43,7 +43,7 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "/user/register", method = RequestMethod.GET)
-    public java.lang.String showRegistrationPage(RegistrationForm registrationForm, WebRequest request) {
+    public String showRegistrationPage(RegistrationForm registrationForm, WebRequest request) {
         LOGGER.debug("Rendering RegistrationPage.");
 
         Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
@@ -68,7 +68,7 @@ public class RegistrationController {
      * Processes the form submissions of the registration form.
      */
     @RequestMapping(value = "/user/register", method = RequestMethod.POST)
-    public java.lang.String registerUserAccount(@Valid RegistrationForm registrationForm,
+    public String registerUserAccount(@Valid RegistrationForm registrationForm,
                                       BindingResult result,
                                       WebRequest request,
                                       RedirectAttributes redirectAttributes) throws DuplicateEmailException {
@@ -117,7 +117,7 @@ public class RegistrationController {
         return registered;
     }
 
-    private void addFieldError(java.lang.String objectName, java.lang.String fieldName, java.lang.String fieldValue, java.lang.String errorCode, BindingResult result) {
+    private void addFieldError(String objectName, String fieldName, String fieldValue, String errorCode, BindingResult result) {
         LOGGER.debug("Adding field error object's: {} field: {} with error code: {}", objectName, fieldName, errorCode);
 
         FieldError error = new FieldError(
@@ -125,7 +125,7 @@ public class RegistrationController {
                 fieldName,
                 fieldValue,
                 false,
-                new java.lang.String[]{errorCode},
+                new String[]{errorCode},
                 new Object[]{},
                 errorCode
         );
