@@ -41,6 +41,10 @@ public class User extends BaseEntity<Long> implements UserDetails {
 
     private String passwordResetHash;
 
+    @OneToOne
+    @JoinColumn(name = "blog_id")
+    private Blog blog;
+
     @Transient
     private List<SimpleGrantedAuthority> simpleGrantedAuthorityList;
 
@@ -170,6 +174,14 @@ public class User extends BaseEntity<Long> implements UserDetails {
         this.passwordResetHash = passwordResetHash;
     }
 
+    public Blog getBlog() {
+        return blog;
+    }
+
+    public void setBlog(Blog blog) {
+        this.blog = blog;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -237,7 +249,7 @@ public class User extends BaseEntity<Long> implements UserDetails {
             return this;
         }
 
-        public Builder setSignInProvider(String signInProvider){
+        public Builder setSignInProvider(String signInProvider) {
             user.socialSignInProvider = signInProvider;
             return this;
         }
