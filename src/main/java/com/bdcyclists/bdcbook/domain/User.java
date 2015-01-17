@@ -45,6 +45,10 @@ public class User extends BaseEntity<Long> implements UserDetails {
     @JoinColumn(name = "blog_id")
     private Blog blog;
 
+    @OneToOne
+    @JoinColumn(name = "user_profile_id")
+    private UserProfile userProfile;
+
     @Transient
     private List<SimpleGrantedAuthority> simpleGrantedAuthorityList;
 
@@ -180,6 +184,14 @@ public class User extends BaseEntity<Long> implements UserDetails {
 
     public void setBlog(Blog blog) {
         this.blog = blog;
+    }
+
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
     }
 
     @Override
