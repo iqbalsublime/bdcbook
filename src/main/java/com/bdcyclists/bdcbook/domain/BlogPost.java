@@ -17,17 +17,16 @@ public class BlogPost extends BaseEntity<Long> {
     @GeneratedValue
     private Long id;
 
-    @Size(max = 65536)
-    @Column(length = 65536, columnDefinition = "longtext")
+    @Lob
     @NotEmpty
     private String content;
 
     @NotEmpty
     @Size(max = 1024)
-    @Column(length = 1024)
     private String title;
 
     @ManyToOne
+    @JoinColumn(name = "blog_id")
     private Blog blog;
 
     @Override
