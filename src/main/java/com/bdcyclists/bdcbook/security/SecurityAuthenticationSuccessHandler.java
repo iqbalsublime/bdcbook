@@ -24,8 +24,11 @@ public class SecurityAuthenticationSuccessHandler implements AuthenticationSucce
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityAuthenticationSuccessHandler.class);
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-        LOGGER.debug("onAuthenticationSuccess() login successful with login={}, sid={}", authentication.getName(), RequestContextHolder.currentRequestAttributes().getSessionId());
+    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
+                                        HttpServletResponse httpServletResponse,
+                                        Authentication authentication) throws IOException, ServletException {
+        LOGGER.debug("onAuthenticationSuccess() login successful with login={}, sid={}", authentication.getName(),
+                RequestContextHolder.currentRequestAttributes().getSessionId());
 
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         if (roles.contains(Role.ROLE_ADMIN.name())) {

@@ -73,8 +73,10 @@ public class RegistrationController {
                                       WebRequest request,
                                       RedirectAttributes redirectAttributes) throws DuplicateEmailException {
         LOGGER.debug("Registering user account with information: {}", registrationForm);
+
         if (result.hasErrors()) {
             LOGGER.debug("Validation errors found. Rendering form view.");
+
             return VIEW_NAME_REGISTRATION_PAGE;
         }
 
@@ -85,6 +87,7 @@ public class RegistrationController {
         //If email address was already found from the database, render the form view.
         if (registered == null) {
             LOGGER.debug("An email address was found from the database. Rendering form view.");
+
             return VIEW_NAME_REGISTRATION_PAGE;
         }
 
