@@ -11,4 +11,7 @@ public interface UserService {
     void update(User user);
 
     User findByEmailAndResetHash(String emailAddress, String resetKey);
+
+    User getCurrentLoggedInUser();
+
 }
