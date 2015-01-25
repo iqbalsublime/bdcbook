@@ -1,16 +1,134 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/main">
+
 
 <head>
     <title>New Profile</title>
 </head>
 
 <body>
+
 <div layout:fragment="content">
 
-    <h1>Lets create profile information here </h1>
+    <fieldset>
+        <legend th:text="#{title.user.profile}">Profile</legend>
+
+        <form class="form-horizontal" role="form" th:action="@{/profile/create}"
+              th:object="${userProfile}" method="post">
+
+            <div class="form-group">
+                <label for="birthDate" class="col-sm-2 control-label"
+                       th:text="#{label.user.profile.birthDate}">Birth Date</label>
+
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="birthDate" placeholder="birthDate"
+                           th:field="*{birthDate}"/>
+                </div>
+                <p class="text-danger"
+                   th:if="${#fields.hasErrors('birthDate')}">
+                    <span th:errors="*{birthDate}">Required</span>
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label for="gender" class="col-sm-2 control-label"
+                       th:text="#{label.user.profile.gender}">Email</label>
+
+                <div class="col-sm-4">
+                    <select class="form-control"
+                            th:field="*{gender}">
+                        <option value="" th:text="#{common.select.prompt}"></option>
+                        <option th:each="gender : ${T(com.bdcyclists.bdcbook.domain.Gender).values()}"
+                                th:value="${gender}"
+                                th:text="${gender.label}"
+                                th:selected="${gender == userProfile.gender}">
+                        </option>
+                    </select>
+
+                </div>
+
+                <p class="text-danger"
+                   th:if="${#fields.hasErrors('gender')}">
+                    <span th:errors="*{gender}">Required</span>
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label for="mobileNo" class="col-sm-2 control-label"
+                       th:text="#{label.user.profile.mobileNo}">mobileNo</label>
+
+                <div class="col-sm-4">
+                    <input type="email" class="form-control" id="mobileNo" placeholder="Mobile No"
+                           th:field="*{mobileNo}"/>
+                </div>
+                <p class="text-danger"
+                   th:if="${#fields.hasErrors('mobileNo')}">
+                    <span th:errors="*{mobileNo}">Required</span>
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label for="bloodGroup" class="col-sm-2 control-label"
+                       th:text="#{label.user.profile.bloodGroup}">Blood Group</label>
+
+                <div class="col-sm-4">
+                    <select class="form-control"
+                            th:field="*{bloodGroup}">
+                        <option value="" th:text="#{common.select.prompt}"></option>
+                        <option th:each="bloodGroup : ${T(com.bdcyclists.bdcbook.domain.BloodGroup).values()}"
+                                th:value="${bloodGroup}"
+                                th:text="${bloodGroup.label}"
+                                th:selected="${bloodGroup == userProfile.bloodGroup}">
+                        </option>
+                    </select>
+                </div>
+                <p class="text-danger"
+                   th:if="${#fields.hasErrors('bloodGroup')}">
+                    <span th:errors="*{bloodGroup}">Required</span>
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label for="address" class="col-sm-2 control-label"
+                       th:text="#{label.user.profile.address}">Address</label>
+
+                <div class="col-sm-4">
+                    <textarea type="email" class="form-control" id="address" placeholder="Address ..."
+                           th:field="*{address}"></textarea>
+                </div>
+                <p class="text-danger"
+                   th:if="${#fields.hasErrors('address')}">
+                    <span th:errors="*{address}">Required</span>
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label for="emergency" class="col-sm-2 control-label"
+                       th:text="#{label.user.profile.emergency}">emergency</label>
+
+                <div class="col-sm-4">
+                    <input type="email" class="form-control" id="emergency" placeholder="Emergency Contact Number"
+                           th:field="*{emergency}"/>
+                </div>
+                <p class="text-danger"
+                   th:if="${#fields.hasErrors('emergency')}">
+                    <span th:errors="*{emergency}">Required</span>
+                </p>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary" th:text="#{button.save}">Save Changes</button>
+                </div>
+            </div>
+
+        </form>
+
+    </fieldset>
 </div>
 </body>
 </html>
