@@ -35,7 +35,13 @@ public class ProfileController {
     }
 
     @RequestMapping(value = "profile/create", method = RequestMethod.GET)
-    public String createProfile(UserProfile profile) {
+    public String createProfile(UserProfile userProfile) {
+
+        return "profile/create";
+    }
+
+    @RequestMapping(value = "profile/create", method = RequestMethod.POST)
+    public String saveProfile(UserProfile userProfile) {
 
         return "profile/create";
     }
