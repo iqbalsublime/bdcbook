@@ -8,6 +8,7 @@
 
 <head>
     <title>New Profile</title>
+    <link rel="stylesheet" type="text/css" href="css/datepicker3.css" th:href="@{/css/datepicker3.css}"/>
 </head>
 
 <body>
@@ -25,13 +26,14 @@
                        th:text="#{label.user.profile.birthDate}">Birth Date</label>
 
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" id="birthDate" placeholder="birthDate"
-                           th:field="*{birthDate}"/>
+                    <input type="text" id="dob" class="form-control date" placeholder="Date Of Birth"
+                           th:field="*{birthDate}" required="required"
+                           pattern="^(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$"/>
+                    <p class="text-danger"
+                       th:if="${#fields.hasErrors('birthDate')}">
+                        <span th:errors="*{birthDate}">Required</span>
+                    </p>
                 </div>
-                <p class="text-danger"
-                   th:if="${#fields.hasErrors('birthDate')}">
-                    <span th:errors="*{birthDate}">Required</span>
-                </p>
             </div>
 
             <div class="form-group">
@@ -62,7 +64,7 @@
                        th:text="#{label.user.profile.mobileNo}">mobileNo</label>
 
                 <div class="col-sm-4">
-                    <input type="email" class="form-control" id="mobileNo" placeholder="Mobile No"
+                    <input type="text" class="form-control" id="mobileNo" placeholder="Mobile No"
                            th:field="*{mobileNo}"/>
                 </div>
                 <p class="text-danger"
@@ -111,7 +113,7 @@
                        th:text="#{label.user.profile.emergency}">emergency</label>
 
                 <div class="col-sm-4">
-                    <input type="email" class="form-control" id="emergency" placeholder="Emergency Contact Number"
+                    <input type="text" class="form-control" id="emergency" placeholder="Emergency Contact Number"
                            th:field="*{emergency}"/>
                 </div>
                 <p class="text-danger"
@@ -127,8 +129,22 @@
             </div>
 
         </form>
-
     </fieldset>
+</div>
+
+<div layout:fragment="custom-scripts">
+    <script type="text/javascript" src="js/bootstrap-datepicker.js" th:src="@{/js/bootstrap-datepicker.js}"></script>
+
+    <script>
+        $('#dob.form-control.date').datepicker({
+            format: "dd/mm/yyyy",
+            startView: 2,
+            startDate: new Date("1980-01-01"),
+            forceParse: false,
+            endDate: "-16y",
+            autoclose: true
+        });
+    </script>
 </div>
 </body>
 </html>

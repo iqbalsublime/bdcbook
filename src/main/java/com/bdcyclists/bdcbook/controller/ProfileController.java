@@ -6,8 +6,11 @@ import com.bdcyclists.bdcbook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.validation.Valid;
 
 /**
  * @author Bazlur Rahman Rokon
@@ -41,8 +44,15 @@ public class ProfileController {
     }
 
     @RequestMapping(value = "profile/create", method = RequestMethod.POST)
-    public String saveProfile(UserProfile userProfile) {
+    public String saveProfile(@Valid UserProfile userProfile, BindingResult result) {
 
-        return "profile/create";
+        if (result.hasErrors()){
+
+            return "profile/create";
+        }
+
+        userService.saveProfile(userProfile);
+
+        return "profile/profile";
     }
 }

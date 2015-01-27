@@ -63,7 +63,7 @@ public class ForgetPasswordController {
         String resetHash = UUID.randomUUID().toString();
         user.setPasswordResetHash(resetHash);
 
-        userService.update(user);
+        userService.updatePassword(user);
         sendResetEmail(user);
 
         redirectAttributes.addFlashAttribute(

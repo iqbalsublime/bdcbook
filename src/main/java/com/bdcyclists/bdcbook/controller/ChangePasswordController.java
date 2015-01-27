@@ -63,7 +63,7 @@ public class ChangePasswordController {
     public String update(@Valid @ModelAttribute("changePasswordForm") ChangePasswordForm form,
                          BindingResult result,
                          RedirectAttributes redirectAttrs) {
-        LOGGER.info("on update password for user={}", form.getEmailAddress());
+        LOGGER.info("on updatePassword password for user={}", form.getEmailAddress());
 
 
         if (!form.getNewPassword().equals(form.getNewPasswordAgain())) {
@@ -79,7 +79,7 @@ public class ChangePasswordController {
             user.setPassword(passwordEncoder.encode(form.getNewPassword()));
             user.setPasswordResetHash(null);
 
-            userService.update(user);
+            userService.updatePassword(user);
 
             redirectAttrs.addFlashAttribute("message", msa.getMessage("password.reset.successful", null, Locale.getDefault()));
 

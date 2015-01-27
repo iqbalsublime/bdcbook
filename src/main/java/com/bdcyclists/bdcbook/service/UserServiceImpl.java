@@ -2,7 +2,9 @@ package com.bdcyclists.bdcbook.service;
 
 import com.bdcyclists.bdcbook.domain.Role;
 import com.bdcyclists.bdcbook.domain.User;
+import com.bdcyclists.bdcbook.domain.UserProfile;
 import com.bdcyclists.bdcbook.dto.RegistrationForm;
+import com.bdcyclists.bdcbook.repository.UserProfileRepository;
 import com.bdcyclists.bdcbook.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,13 +21,16 @@ public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserServiceImpl.class);
 
-    private UserRepository repository;
+    private UserRepository userRepository;
+
+    @Autowired
+    private UserProfileRepository userProfileRepository;
 
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository repository, PasswordEncoder passwordEncoder) {
-        this.repository = repository;
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -64,28 +69,28 @@ public class UserServiceImpl implements UserService {
 
         LOGGER.debug("Persisting new user with information: {}", registered);
 
-        return repository.save(registered);
+        return userRepository.save(registered);
     }
 
     @Override
     public User findByEmail(String email) {
         LOGGER.debug("Retrieving user from database by email = {} ", email);
 
-        return repository.findByEmail(email);
+        return userRepository.findByEmail(email);
     }
 
     @Override
-    public void update(User user) {
+    public void updatePassword(User user) {
         User userFromDb = findByEmail(user.getEmail());
         userFromDb.setPasswordResetHash(user.getPasswordResetHash());
 
-        repository.save(userFromDb);
+        userRepository.save(userFromDb);
     }
 
     @Override
     public User findByEmailAndResetHash(String emailAddress, String resetKey) {
 
-        return repository.findByEmailAndPasswordResetHash(emailAddress, resetKey);
+        return userRepository.findByEmailAndPasswordResetHash(emailAddress, resetKey);
     }
 
     @Override
@@ -97,13 +102,24 @@ public class UserServiceImpl implements UserService {
         LOGGER.debug("Currently logged in user is : {}", email);
 
         LOGGER.debug("Fetch user from database and return ");
-        return repository.findByEmail(email);
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public void saveProfile(UserProfile userProfile) {
+        LOGGER.debug("going to save userProfile : {}", userProfile);
+
+        User currentLoggedInUser = getCurrentLoggedInUser();
+        UserProfile profileSaved = userProfileRepository.save(userProfile);
+        currentLoggedInUser.setUserProfile(profileSaved);
+
+        userRepository.save(currentLoggedInUser);
     }
 
     private boolean emailExist(String email) {
         LOGGER.debug("Checking if email {} is already found from the database.", email);
 
-        User user = repository.findByEmail(email);
+        User user = userRepository.findByEmail(email);
 
         if (user != null) {
             LOGGER.debug("User account: {} found with email: {}. Returning true.", user, email);

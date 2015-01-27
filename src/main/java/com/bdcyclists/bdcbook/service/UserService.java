@@ -1,6 +1,7 @@
 package com.bdcyclists.bdcbook.service;
 
 import com.bdcyclists.bdcbook.domain.User;
+import com.bdcyclists.bdcbook.domain.UserProfile;
 import com.bdcyclists.bdcbook.dto.RegistrationForm;
 
 public interface UserService {
@@ -8,10 +9,11 @@ public interface UserService {
 
     public User findByEmail(String email);
 
-    void update(User user);
+    void updatePassword(User user);
 
     User findByEmailAndResetHash(String emailAddress, String resetKey);
 
     User getCurrentLoggedInUser();
 
+    void saveProfile(UserProfile userProfile);
 }

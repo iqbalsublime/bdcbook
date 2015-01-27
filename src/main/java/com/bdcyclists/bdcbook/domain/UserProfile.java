@@ -17,7 +17,8 @@ public class UserProfile extends BaseEntity<Long> {
     @GeneratedValue
     private Long id;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @Temporal(value = TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date birthDate;
 
     @Enumerated(EnumType.STRING)
@@ -115,5 +116,21 @@ public class UserProfile extends BaseEntity<Long> {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("UserProfile{");
+        sb.append("address='").append(address).append('\'');
+        sb.append(", id=").append(id);
+        sb.append(", birthDate=").append(birthDate);
+        sb.append(", gender=").append(gender);
+        sb.append(", mobileNo='").append(mobileNo).append('\'');
+        sb.append(", bloodGroup=").append(bloodGroup);
+        sb.append(", emergency='").append(emergency).append('\'');
+        sb.append(", facebookProfile='").append(facebookProfile).append('\'');
+        sb.append(", user=").append(user);
+        sb.append('}');
+        return sb.toString();
     }
 }
