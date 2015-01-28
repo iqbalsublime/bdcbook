@@ -1,18 +1,110 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/main">
 
 <head>
     <title>Profile</title>
+    <style>
+        .user-row {
+            margin-bottom: 14px;
+        }
+
+        .user-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .dropdown-user {
+            margin: 13px 0;
+            padding: 5px;
+            height: 100%;
+        }
+
+        .dropdown-user:hover {
+            cursor: pointer;
+        }
+
+        .table-user-information > tbody > tr {
+            border-top: 1px solid rgb(221, 221, 221);
+        }
+
+        .table-user-information > tbody > tr:first-child {
+            border-top: 0;
+        }
+
+        .table-user-information > tbody > tr > td {
+            border-top: 0;
+        }
+
+    </style>
 </head>
 
 <body>
 <div layout:fragment="content">
 
-    <p>Birth Date: <span th:text="${profile.birthDate}"></span></p>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">User information</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-3 col-lg-3 hidden-xs hidden-sm">
+                    <img class="img-circle"
+                         src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100"
+                         alt="User Pic"/>
+                </div>
+                <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
+                    <strong><span th:text="${user.getFullName()}"></span></strong> <br/>
+                    <table class="table table-user-information">
+                        <tbody>
+
+                        <tr>
+                            <td>Date of Birth:</td>
+                            <td th:text="${#dates.format(user.userProfile.birthDate, 'dd MMMM, yyyy')}"></td>
+                        </tr>
+                        <tr>
+                            <td>Gender:</td>
+                            <td th:text="${user.userProfile.gender.label}"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Mobile No:</td>
+                            <td th:text="${user.userProfile.mobileNo}"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Blood Group :</td>
+                            <td th:text="${user.userProfile.bloodGroup.label}"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Address :</td>
+                            <td th:text="${user.userProfile.address}"></td>
+                        </tr>
+                        <tr>
+                            <td>Emergency Contact No:</td>
+                            <td th:text="${user.userProfile.emergency}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button class="btn btn-sm btn-primary" type="button"
+                    data-toggle="tooltip"
+                    data-original-title="Send message to user"><i class="glyphicon glyphicon-envelope"></i>
+            </button>
+            <span class="pull-right">
+                <button class="btn btn-sm btn-warning" type="button"
+                        data-toggle="tooltip"
+                        data-original-title="Edit this user"><i class="glyphicon glyphicon-edit"></i>
+                </button>
+
+            </span>
+        </div>
+    </div>
 
 </div>
 

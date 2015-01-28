@@ -194,6 +194,11 @@ public class User extends BaseEntity<Long> implements UserDetails {
         this.userProfile = userProfile;
     }
 
+    public String getFullName(){
+
+        return firstName + " " + lastName;
+    }
+
     @Override
     public String toString() {
         return "User{" +
