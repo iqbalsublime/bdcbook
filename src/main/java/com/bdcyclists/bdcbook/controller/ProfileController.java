@@ -52,8 +52,18 @@ public class ProfileController {
         return "profile/create";
     }
 
-    @RequestMapping(value = "profile/create", method = RequestMethod.POST)
-    public String saveProfile(@Valid UserProfile userProfile, BindingResult result) {
+    @RequestMapping(value = "profile/edit", method = RequestMethod.GET)
+    public String editProfile(Model uiModel) {
+        LOGGER.debug("at editProfile()");
+
+        User loggedInUser = userService.getCurrentLoggedInUser();
+        uiModel.addAttribute("userProfile", loggedInUser.getUserProfile());
+
+        return "profile/create";
+    }
+
+    @RequestMapping(value = "profile/save", method = RequestMethod.POST)
+    public String updateProfile(@Valid UserProfile userProfile, BindingResult result) {
         LOGGER.debug("at saveProfile()");
 
         if (result.hasErrors()) {
@@ -64,6 +74,6 @@ public class ProfileController {
         LOGGER.debug("save the profile : {} and redirect", userProfile);
         userService.saveProfile(userProfile);
 
-        return "redirect:profile/profile";
+        return "redirect:/profile";
     }
 }

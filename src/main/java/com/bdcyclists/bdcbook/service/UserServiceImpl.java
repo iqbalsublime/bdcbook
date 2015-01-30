@@ -110,10 +110,23 @@ public class UserServiceImpl implements UserService {
         LOGGER.debug("going to save userProfile : {}", userProfile);
 
         User currentLoggedInUser = getCurrentLoggedInUser();
-        UserProfile profileSaved = userProfileRepository.save(userProfile);
-        currentLoggedInUser.setUserProfile(profileSaved);
 
-        userRepository.save(currentLoggedInUser);
+        if (userProfile.getId() == null) {
+            UserProfile profileSaved = userProfileRepository.save(userProfile);
+            currentLoggedInUser.setUserProfile(profileSaved);
+            userRepository.save(currentLoggedInUser);
+        } else {
+            UserProfile userProfileToBeUpdated = userProfileRepository.findOne(userProfile.getId());
+
+            userProfileToBeUpdated.setAddress(userProfile.getAddress());
+            userProfileToBeUpdated.setBirthDate(userProfile.getBirthDate());
+            userProfileToBeUpdated.setGender(userProfile.getGender());
+            userProfileToBeUpdated.setMobileNo(userProfile.getMobileNo());
+            userProfileToBeUpdated.setBloodGroup(userProfile.getBloodGroup());
+            userProfileToBeUpdated.setEmergency(userProfile.getEmergency());
+
+            userProfileRepository.save(userProfileToBeUpdated);
+        }
     }
 
     private boolean emailExist(String email) {

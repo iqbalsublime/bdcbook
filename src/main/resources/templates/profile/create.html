@@ -18,8 +18,10 @@
     <fieldset>
         <legend th:text="#{title.user.profile}">Profile</legend>
 
-        <form class="form-horizontal" role="form" th:action="@{/profile/create}"
+        <form class="form-horizontal" role="form" th:action="@{/profile/save}"
               th:object="${userProfile}" method="post">
+
+            <input th:field="*{id}" type="hidden"/>
 
             <div class="form-group">
                 <label for="birthDate" class="col-sm-2 control-label"
