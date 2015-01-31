@@ -125,6 +125,24 @@
             </div>
 
             <div class="form-group">
+                <label for="emergency" class="col-sm-2 control-label"
+                       th:text="#{label.user.profile.facebookProfile}">Facebook User Name</label>
+
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="emergency" placeholder="[user_name]"
+                           th:field="*{facebookProfile}"/>
+                    <span class="help">
+                        Please provide a valid facebook user name e.g https://www.facebook.com/[user_name]<br/>
+                        Put only [user_name] here without the bracket.
+                    </span>
+                </div>
+                <p class="text-danger"
+                   th:if="${#fields.hasErrors('facebookProfile')}">
+                    <span th:errors="*{facebookProfile}">Required</span>
+                </p>
+            </div>
+
+            <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button type="submit" class="btn btn-primary" th:text="#{button.save}">Save Changes</button>
                 </div>

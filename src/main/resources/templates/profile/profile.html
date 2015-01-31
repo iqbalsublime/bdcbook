@@ -86,6 +86,10 @@
                             <td>Emergency Contact No:</td>
                             <td th:text="${user.userProfile.emergency}"></td>
                         </tr>
+                        <tr>
+                            <td>Facebook Profile Link :</td>
+                            <td th:text="'https://www.facebook.com/'+${user.userProfile.facebookProfile}"></td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

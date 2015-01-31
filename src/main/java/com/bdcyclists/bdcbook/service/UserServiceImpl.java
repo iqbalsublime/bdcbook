@@ -124,6 +124,7 @@ public class UserServiceImpl implements UserService {
             userProfileToBeUpdated.setMobileNo(userProfile.getMobileNo());
             userProfileToBeUpdated.setBloodGroup(userProfile.getBloodGroup());
             userProfileToBeUpdated.setEmergency(userProfile.getEmergency());
+            userProfileToBeUpdated.setFacebookProfile(userProfile.getFacebookProfile());
 
             userProfileRepository.save(userProfileToBeUpdated);
         }
